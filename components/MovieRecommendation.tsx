@@ -6,16 +6,16 @@ import { FiSearch } from 'react-icons/fi';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 interface MovieData {
+  movie_details: any;
   recommendation: string[];
   movie_posters: string[];
-  movie_details: string[];
 }
 
 export const MovieRecommendation = () => {
   const [searchInputMovie, setSearchInputMovie] = useState<string>('');
   const [movieTitle, setMovieTitle] = useState<string[]>([]);
   const [moviePosters, setMoviePosters] = useState<string[]>([]);
-  const [movieDetails, setMovieDetails] = useState<string[]>([]);
+  const [movieDetails, setMovieDetails] = useState<any>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showScrollButton, setShowScrollButton] = useState<boolean>(false);

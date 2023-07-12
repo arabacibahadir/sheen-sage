@@ -41,6 +41,7 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
       .eq('user_id', user.data.user?.id)
       .eq('movie', movie.title);
 
+    // @ts-ignore
     if (existingMovies?.length > 0) {
       return;
     }

@@ -6,6 +6,7 @@ import Link from 'next/link';
 interface Movie {
   id: number;
   title: string;
+  movie: string;
 }
 
 const Watchlist = () => {
@@ -30,7 +31,7 @@ const Watchlist = () => {
     fetchUserMovies();
   }, [refresh]);
 
-  const removeMovie = async (movie: Movie) => {
+  const removeMovie = async (movie: string) => {
     const user = await supabase.auth.getUser();
     const { data, error } = await supabase
       .from('movies')
