@@ -1,0 +1,71 @@
+import { ChangeEvent, useState } from 'react';
+import { FiX } from 'react-icons/fi';
+
+interface AutocompleteProps {
+  suggestions: string[];
+  handleAutocomplete: (value: string) => void;
+  handleSuggestionClick: (suggestion: string) => void;
+  handleClearInput: () => void;
+}
+
+const Autocomplete = ({
+                        suggestions,
+                        handleAutocomplete,
+                        handleSuggestionClick,
+                        handleClearInput
+                      }: AutocompleteProps) => {
+  const [value, setValue] = useState('');
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setValue(value);
+    handleAutocomplete(value);
+  };
+
+  const handleItemClick = (suggestion: string) => {
+    setValue(suggestion);
+    handleSuggestionClick(suggestion);
+  };
+
+  const handleClear = () => {
+    setValue('');
+    handleClearInput();
+  };
+
+  return (
+    <div className='animate-in flex flex-col text-foreground z-10'>
+      <div className='flex'>
+        <input
+          type='text'
+          value={value}
+          onChange={handleChange}
+          placeholder='Find Over 722k Movies'
+          className='p-2 rounded-l focus:outline-none text-background w-full sm:w-96 hover:border-gray-400 border-2 border-transparent focus:border-gray-400'
+        />
+        <button
+          type='button'
+          className='flex items-center justify-center rounded-r text-gray-400 hover:text-gray-700 focus:outline-none bg-white w-12 border-2 border-transparent focus:border-gray-400'
+          onClick={handleClear}
+        >
+          <FiX className='h-5 w-5' />
+        </button>
+      </div>
+      {suggestions.length > 0 && (
+        <ul
+          className='bg-btn-background border border-gray-300 rounded max-h-60 overflow-y-auto absolute z-10 mt-10 mr-24 w-96'>
+          {suggestions.map((suggestion, index) => (
+            <li
+              key={index}
+              className='p-2 cursor-pointer hover:bg-btn-background-hover text-left'
+              onClick={() => handleItemClick(suggestion)}
+            >
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default Autocomplete;
