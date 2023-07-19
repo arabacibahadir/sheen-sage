@@ -5,7 +5,8 @@
     "next-dev": "next dev",
     "dev": "concurrently \"pnpm run next-dev\" \"pnpm run fastapi-dev\"",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "proxy": "http://localhost:8000"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "latest",
