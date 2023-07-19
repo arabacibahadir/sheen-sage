@@ -24,7 +24,7 @@ export const LandingMetrics = () => {
   };
 
   return (
-    <div className='flex flex-wrap pb-4'>
+    <div className='flex flex-wrap pb-4 animate-in'>
       {genres.map((genre) => (
         <div
           key={genre.genre}

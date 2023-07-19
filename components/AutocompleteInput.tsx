@@ -39,7 +39,7 @@ const Autocomplete = ({
           type='text'
           value={value}
           onChange={handleChange}
-          placeholder='Find Over 127k Movies'
+          placeholder='Discover specially curated movies'
           className='p-2 rounded-l focus:outline-none text-background w-full sm:w-96 hover:border-gray-400 border-2 border-transparent focus:border-gray-400'
         />
         <button
