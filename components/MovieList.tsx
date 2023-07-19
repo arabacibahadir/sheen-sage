@@ -77,6 +77,7 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
               src={posters[index]}
               alt={`Poster ${index}`}
               className={`h-auto rounded-lg border-white border-4 ${index === isHovered ? 'filter blur-md' : ''} `}
+              loading='lazy'
             />
             {details[index] && (
               <div

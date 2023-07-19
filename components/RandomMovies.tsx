@@ -44,6 +44,7 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
         alt={movie.title}
         className={`h-auto w-80 rounded-lg ${isHovered ? 'filter blur-md' : ''}`}
+        loading='lazy'
       />
       <div
         className={`absolute top-0 left-0 w-full h-full flex items-center justify-center transition-opacity duration-300 ${
