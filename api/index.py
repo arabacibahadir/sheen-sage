@@ -41,6 +41,7 @@ def all_movie_titles():
 @app.get("/api/recommend_movie/{movie}")
 def get_recommendation(movie: str):
     movie = movie.replace("%20", " ")
+    movie = movie.replace("%3A", ":")
     response = requests.post("https://wykonos-movie-recommender.hf.space/run/predict", json={"data": [movie]}).json()
     data = response["data"][0]
     recommendation = data[0]

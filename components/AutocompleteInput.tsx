@@ -18,8 +18,9 @@ const Autocomplete = ({
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setValue(value);
-    handleAutocomplete(value);
+    const encodedValue = value.includes(":") ? encodeURIComponent(value) : value;
+    setValue(encodedValue);
+    handleAutocomplete(encodedValue);
   };
 
   const handleItemClick = (suggestion: string) => {
