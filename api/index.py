@@ -28,11 +28,6 @@ def get_movie_poster(title):
     return "https://image.tmdb.org/t/p/original" + poster_path
 
 
-@app.get("/api/test")
-def read_root():
-    return {"message": "Recommender System Project"}
-
-
 @app.get("/api/movie_titles")
 def all_movie_titles():
     return movie_titles["title"].values.tolist()
