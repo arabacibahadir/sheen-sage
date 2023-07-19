@@ -33,4 +33,5 @@ yarn-error.log*
 next-env.d.ts
 
 api/.env
+api/__pycache__
 api/.pytest_cache
