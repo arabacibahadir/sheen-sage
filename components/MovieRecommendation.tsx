@@ -1,9 +1,8 @@
 'use client';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Autocomplete from './AutocompleteInput';
 import MovieList from './MovieList';
 import { FiSearch } from 'react-icons/fi';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 interface MovieData {
   movie_details: any;
@@ -18,11 +17,6 @@ export const MovieRecommendation = () => {
   const [movieDetails, setMovieDetails] = useState<any>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showScrollButton, setShowScrollButton] = useState<boolean>(false);
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchInputMovie(event.target.value);
-  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,7 +29,6 @@ export const MovieRecommendation = () => {
     setMoviePosters(data.movie_posters);
     setMovieDetails(data.movie_details);
     setCurrentPage(1);
-    setShowScrollButton(false);
   };
 
   const handleAutocomplete = async (value: string) => {
@@ -63,10 +56,8 @@ export const MovieRecommendation = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside as EventListener);
-    window.addEventListener('scroll', handleScroll);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside as EventListener);
-      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -87,18 +78,6 @@ export const MovieRecommendation = () => {
   };
 
   const paginatedRecommendations = movieTitle.slice(0, currentPage * 12);
-
-  const handleScroll = () => {
-    if (window.scrollY > 200) {
-      setShowScrollButton(true);
-    } else {
-      setShowScrollButton(false);
-    }
-  };
-
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   const handleClearInput = () => {
     setSearchInputMovie('');
@@ -125,7 +104,6 @@ export const MovieRecommendation = () => {
       {paginatedRecommendations.length > 0 && (
         <MovieList recommendations={paginatedRecommendations} posters={moviePosters} details={movieDetails} />
       )}
-      {showScrollButton && <ScrollToTopButton handleScrollToTop={handleScrollToTop} />}
       {movieTitle.length > currentPage * 12 && paginatedRecommendations.length <= 105 && (
         <button
           onClick={handleLoadMore}

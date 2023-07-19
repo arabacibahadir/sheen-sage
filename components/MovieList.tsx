@@ -18,6 +18,13 @@ interface MovieListProps {
   details: Movie[][];
 }
 
+const truncate = (text: string, maxLength: number) => {
+  if (text.length > maxLength) {
+    return text.substr(0, maxLength - 3) + '...';
+  }
+  return text;
+};
+
 const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
   const [isHovered, setIsHovered] = React.useState(-1);
   const supabase = createClientComponentClient();
@@ -58,7 +65,7 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
 
   return (
     <div className='mt-8 animate-in'>
-      <div className='flex flex-wrap justify-center '>
+      <div className='flex flex-wrap justify-center'>
         {recommendations.map((movie, index) => (
           <div
             key={index}
@@ -81,14 +88,18 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
                   <p className='text-white italic'>{details[index][0].tagline}</p>
                   <p className='text-2xl font-bold text-green-400'>{details[index][0].title}</p>
                   <p className='text-white italic pb-4'>{details[index][0].genres}</p>
-                  <p className='text-white text-justify'>{details[index][0].overview}</p>
+                  <p className='text-white text-justify'>
+                    {truncate(details[index][0].overview, 420)}
+                  </p>
                   <div className='flex justify-around italic p-2 font-bold '>
                     <p className='text-green-400'>{convertMinutesToHours(details[index][0].runtime)}</p>
                     <p className='text-green-400'>{details[index][0].release_date}</p>
                   </div>
                   <button
                     className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-2 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
-                    onClick={() => handleSaveMovie(details[index][0])}>Watch Later
+                    onClick={() => handleSaveMovie(details[index][0])}
+                  >
+                    Watch Later
                   </button>
                 </div>
               </div>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Link from 'next/link';
+import { FiTrash2 } from 'react-icons/fi';
 
 interface Movie {
   id: number;
@@ -75,7 +76,7 @@ const Watchlist = () => {
                 className='text-red-500'
                 onClick={() => removeMovie(movie.movie)}
               >
-                Remove
+               <FiTrash2 size={20} />
               </button>
             </li>
           ))}

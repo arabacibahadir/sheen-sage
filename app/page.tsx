@@ -5,6 +5,7 @@ import { LandingMetrics } from '@/components/LandingMetrics';
 import { LandingRandomMovies } from '@/components/RandomMovies';
 import Socials from '@/components/Socials';
 import TopNavBar from '@/components/TopNavBar';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 export default async function Landing() {
   const supabase = createServerComponentClient({ cookies });
@@ -16,8 +17,6 @@ export default async function Landing() {
     <>
       <div className='w-full flex flex-col items-center min-h-screen'>
         <TopNavBar />
-        <div className='text-4xl'>
-        </div>
         <MovieRecommendation />
         <LandingRandomMovies />
         <div className='text-4xl py-12 text-white'>
@@ -27,6 +26,7 @@ export default async function Landing() {
         <LandingMetrics />
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground to-transparent' />
         <Socials />
+        <ScrollToTopButton />
       </div>
     </>
   );
