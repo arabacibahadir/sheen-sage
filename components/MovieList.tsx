@@ -1,7 +1,7 @@
 import React from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import { convertMinutesToHours } from '@/components/RandomMovies';
+import { convertMinutesToHours } from '@/components/LandingRandomMovies';
 
 interface Movie {
   title: string;
