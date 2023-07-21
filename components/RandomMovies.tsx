@@ -34,7 +34,7 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
 
   return (
     <div
-      className={`bg-white shadow-lg rounded-lg p-1 w-7/8 relative overflow-hidden  mx-2 ${
+      className={`bg-white shadow-lg rounded-lg p-1 w-7/8 relative overflow-hidden  mx-2 cursor-default ${
         isHovered ? 'z-10 ' : ''
       }`}
       onMouseEnter={handleMouseEnter}

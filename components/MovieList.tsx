@@ -64,12 +64,12 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
   };
 
   return (
-    <div className='mt-8 animate-in'>
-      <div className='flex flex-wrap justify-center'>
+    <div className='mt-8 animate-in cursor-default'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 mx-20 '>
         {recommendations.map((movie, index) => (
           <div
             key={index}
-            className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 rounded-lg relative m-2 '
+            className='rounded-lg relative m-2 '
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
@@ -86,18 +86,18 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
                 }`}
               >
                 <div className='text-white text-center p-4'>
-                  <p className='text-white italic'>{details[index][0].tagline}</p>
+                  <p className='text-white italic text-sm'>{details[index][0].tagline}</p>
                   <p className='text-2xl font-bold text-green-400'>{details[index][0].title}</p>
-                  <p className='text-white italic pb-4'>{details[index][0].genres}</p>
-                  <p className='text-white text-justify'>
-                    {truncate(details[index][0].overview, 420)}
+                  <p className='text-white italic pb-4 text-sm'>{details[index][0].genres}</p>
+                  <p className='text-white text-justify text-sm'>
+                    {truncate(details[index][0].overview, 300)}
                   </p>
                   <div className='flex justify-around italic p-2 font-bold '>
-                    <p className='text-green-400'>{convertMinutesToHours(details[index][0].runtime)}</p>
-                    <p className='text-green-400'>{details[index][0].release_date}</p>
+                    <p className='text-green-400 text-sm'>{convertMinutesToHours(details[index][0].runtime)}</p>
+                    <p className='text-green-400 text-sm'>{details[index][0].release_date}</p>
                   </div>
                   <button
-                    className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-2 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
+                    className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-1 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
                     onClick={() => handleSaveMovie(details[index][0])}
                   >
                     Watch Later
