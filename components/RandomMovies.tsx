@@ -51,13 +51,13 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
           isHovered ? 'opacity-80 bg-gray-900 border-4 border-green-400 rounded-lg' : 'opacity-0 '
         }`}>
         <div className='text-white text-center p-4 '>
-          <p className='text-white italic'>{movie.tagline}</p>
+          <p className='text-white italic text-sm'>{movie.tagline}</p>
           <h3 className='text-2xl font-bold text-green-400'>{movie.title}</h3>
-          <p className='text-white italic pb-4'>{movie.genres}</p>
-          <p className='text-white text-justify'>{movie.overview}</p>
+          <p className='text-white italic pb-4 text-sm'>{movie.genres}</p>
+          <p className='text-white text-justify text-sm'>{movie.overview}</p>
           <div className='flex justify-around italic p-2 font-bold '>
-            <p className='text-green-400'>{convertMinutesToHours(movie.runtime)}</p>
-            <p className='text-green-400'>{movie.release_date}</p>
+            <p className='text-green-400 text-sm'>{convertMinutesToHours(movie.runtime)}</p>
+            <p className='text-green-400 text-sm'>{movie.release_date}</p>
           </div>
         </div>
       </div>

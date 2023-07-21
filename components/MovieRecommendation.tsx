@@ -2,7 +2,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import Autocomplete from './AutocompleteInput';
 import MovieList from './MovieList';
-import { FiSearch } from 'react-icons/fi';
+import { FiLoader, FiSearch } from 'react-icons/fi';
 
 interface MovieData {
   movie_details: any;
@@ -17,7 +17,7 @@ export const MovieRecommendation = () => {
   const [movieDetails, setMovieDetails] = useState<any>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMovieTitle([]);
@@ -26,11 +26,13 @@ export const MovieRecommendation = () => {
     if (searchInputMovie.trim() === '') {
       return;
     }
+    setIsLoading(true);
     const response = await fetch(`/api/recommend_movie/${encodeURIComponent(searchInputMovie)}`);
     const data: MovieData = await response.json();
     setMovieTitle(data.recommendation);
     setMovieDetails(data.movie_details);
     setCurrentPage(1);
+    setIsLoading(false);
   };
 
   const handleAutocomplete = async (value: string) => {
@@ -83,7 +85,6 @@ export const MovieRecommendation = () => {
 
   const handleClearInput = () => {
     setSearchInputMovie('');
-
   };
 
   return (
@@ -98,9 +99,15 @@ export const MovieRecommendation = () => {
           />
           <button
             type='submit'
-            className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-2.5 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ml-2'
+            className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-2 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ml-2'
           >
-            <FiSearch className='inline-block' />
+            {isLoading ? (
+              <div className='animate-spin'>
+                <FiLoader />
+              </div>
+            ) : (
+              <FiSearch className='inline-block' />
+            )}
           </button>
         </div>
       </form>
