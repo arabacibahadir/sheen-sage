@@ -20,6 +20,9 @@ export const MovieRecommendation = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setMovieTitle([]);
+    setMoviePosters([]);
+    setMovieDetails([]);
     if (searchInputMovie.trim() === '') {
       return;
     }
@@ -80,6 +83,7 @@ export const MovieRecommendation = () => {
 
   const handleClearInput = () => {
     setSearchInputMovie('');
+
   };
 
   return (
@@ -100,8 +104,8 @@ export const MovieRecommendation = () => {
           </button>
         </div>
       </form>
-      {paginatedRecommendations.length > 0 && (
-        <MovieList details={movieDetails} />
+      {movieDetails.length > 0 && (
+        <MovieList details={movieDetails.slice(0, currentPage * 12)} />
       )}
       {movieTitle.length > currentPage * 12 && paginatedRecommendations.length <= 105 && (
         <button
