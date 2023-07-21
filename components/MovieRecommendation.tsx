@@ -26,7 +26,6 @@ export const MovieRecommendation = () => {
     const response = await fetch(`/api/recommend_movie/${encodeURIComponent(searchInputMovie)}`);
     const data: MovieData = await response.json();
     setMovieTitle(data.recommendation);
-    setMoviePosters(data.movie_posters);
     setMovieDetails(data.movie_details);
     setCurrentPage(1);
   };
@@ -102,7 +101,7 @@ export const MovieRecommendation = () => {
         </div>
       </form>
       {paginatedRecommendations.length > 0 && (
-        <MovieList recommendations={paginatedRecommendations} posters={moviePosters} details={movieDetails} />
+        <MovieList details={movieDetails} />
       )}
       {movieTitle.length > currentPage * 12 && paginatedRecommendations.length <= 105 && (
         <button

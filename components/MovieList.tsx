@@ -10,22 +10,21 @@ interface Movie {
   release_date: string;
   tagline: string;
   runtime: number;
+  poster_path: string;
 }
 
 interface MovieListProps {
-  recommendations: string[];
-  posters: string[];
   details: Movie[][];
 }
 
 const truncate = (text: string, maxLength: number) => {
   if (text.length > maxLength) {
-    return text.substr(0, maxLength - 3) + '...';
+    return text.substring(0, maxLength - 3) + '...';
   }
   return text;
 };
 
-const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
+const MovieList = ({ details }: MovieListProps) => {
   const [isHovered, setIsHovered] = React.useState(-1);
   const supabase = createClientComponentClient();
   const router = useRouter();
@@ -49,8 +48,7 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
       .eq('user_id', user.data.user?.id)
       .eq('movie', movie.title);
 
-    // @ts-ignore
-    if (existingMovies?.length > 0) {
+    if (existingMovies && existingMovies?.length > 0) {
       return;
     }
 
@@ -66,44 +64,46 @@ const MovieList = ({ recommendations, posters, details }: MovieListProps) => {
   return (
     <div className='mt-8 animate-in cursor-default'>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 mx-20 '>
-        {recommendations.map((movie, index) => (
+        {details.map((movie, index) => (
           <div
             key={index}
             className='rounded-lg relative m-2 '
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
-            <img
-              src={posters[index]}
-              alt={`Poster ${index}`}
-              className={`h-auto rounded-lg border-white border-4 ${index === isHovered ? 'filter blur-md' : ''} `}
-              loading='lazy'
-            />
-            {details[index] && (
-              <div
-                className={`absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center transition-opacity duration-300 ${
-                  index === isHovered ? 'opacity-80 bg-gray-900 border-4 border-green-400 rounded-lg' : 'opacity-0'
-                }`}
-              >
-                <div className='text-white text-center p-4'>
-                  <p className='text-white italic text-sm'>{details[index][0].tagline}</p>
-                  <p className='text-2xl font-bold text-green-400'>{details[index][0].title}</p>
-                  <p className='text-white italic pb-4 text-sm'>{details[index][0].genres}</p>
-                  <p className='text-white text-justify text-sm'>
-                    {truncate(details[index][0].overview, 300)}
-                  </p>
-                  <div className='flex justify-around italic p-2 font-bold '>
-                    <p className='text-green-400 text-sm'>{convertMinutesToHours(details[index][0].runtime)}</p>
-                    <p className='text-green-400 text-sm'>{details[index][0].release_date}</p>
+            {movie[0] && (
+              <>
+                <img
+                  src={`https://image.tmdb.org/t/p/original${movie[0].poster_path}`}
+                  alt={`Poster ${index}`}
+                  className={`h-auto rounded-lg border-white border-4 ${index === isHovered ? 'filter blur-md' : ''} `}
+                  loading='lazy'
+                />
+                <div
+                  className={`absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center transition-opacity duration-300 ${
+                    index === isHovered ? 'opacity-80 bg-gray-900 border-4 border-green-400 rounded-lg' : 'opacity-0'
+                  }`}
+                >
+                  <div className='text-white text-center p-4'>
+                    <p className='text-white italic text-sm'>{movie[0].tagline}</p>
+                    <p className='text-2xl font-bold text-green-400'>{movie[0].title}</p>
+                    <p className='text-white italic pb-4 text-sm'>{movie[0].genres}</p>
+                    <p className='text-white text-justify text-sm'>
+                      {truncate(movie[0].overview, 300)}
+                    </p>
+                    <div className='flex justify-around italic p-2 font-bold '>
+                      <p className='text-green-400 text-sm'>{convertMinutesToHours(movie[0].runtime)}</p>
+                      <p className='text-green-400 text-sm'>{movie[0].release_date}</p>
+                    </div>
+                    <button
+                      className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-1 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
+                      onClick={() => handleSaveMovie(movie[0])}
+                    >
+                      Watch Later
+                    </button>
                   </div>
-                  <button
-                    className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-1 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
-                    onClick={() => handleSaveMovie(details[index][0])}
-                  >
-                    Watch Later
-                  </button>
                 </div>
-              </div>
+              </>
             )}
           </div>
         ))}
