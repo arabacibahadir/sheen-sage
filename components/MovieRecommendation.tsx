@@ -2,7 +2,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import Autocomplete from './AutocompleteInput';
 import MovieList from './MovieList';
-import { FiLoader, FiSearch } from 'react-icons/fi';
+import { FiArrowDown, FiArrowDownCircle, FiLoader, FiSearch } from 'react-icons/fi';
 
 interface MovieData {
   movie_details: any;
@@ -117,9 +117,10 @@ export const MovieRecommendation = () => {
       {movieTitle.length > currentPage * 12 && paginatedRecommendations.length <= 105 && (
         <button
           onClick={handleLoadMore}
-          className='py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover mx-auto mt-4 w-1/2 border-2 border-gray-400'
+          className='py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover mx-auto mt-8 w-1/2 border-2 border-green-400'
         >
           Load More
+          <FiArrowDown size={20} className='ml-2 inline-block animate-bounce text-green-400' />
         </button>
       )}
     </div>

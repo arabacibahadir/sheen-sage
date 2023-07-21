@@ -24,12 +24,12 @@ const ScrollToTopButton = () => {
   return (
     <>
       {isVisible &&
-          <button
-            onClick={handleScrollToTop}
-            className='sticky bottom-4 right-4 text-green-400 px-4 py-2 mx-auto my-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover border-2 border-green-400 z-10'
-          >
-            <FiArrowUp size={20} />
-          </button>
+        <button
+          onClick={handleScrollToTop}
+          className='sticky bottom-4 right-4 text-green-400 px-4 py-2 mx-auto my-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover border-2 border-green-400 z-10'
+        >
+          <FiArrowUp size={20} className='animate-bounce' />
+        </button>
       }
     </>
   );
