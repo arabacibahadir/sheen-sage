@@ -15,7 +15,7 @@ export default async function Landing() {
 
   return (
     <>
-      <div className='w-full flex flex-col items-center min-h-screen'>
+      <div className='w-full flex flex-col items-center min-h-screen cursor-default'>
         <TopNavBar />
         <MovieRecommendation />
         <LandingRandomMovies />
