@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 
-export default function Socials() {
+export default function Footer() {
   return (
 
     <div className='w-full flex flex-col items-stretch py-16'>

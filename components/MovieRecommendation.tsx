@@ -2,7 +2,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import Autocomplete from './AutocompleteInput';
 import MovieList from './MovieList';
-import { FiSearch } from 'react-icons/fi';
+import { FiArrowDown, FiArrowDownCircle, FiLoader, FiSearch } from 'react-icons/fi';
 
 interface MovieData {
   movie_details: any;
@@ -17,18 +17,22 @@ export const MovieRecommendation = () => {
   const [movieDetails, setMovieDetails] = useState<any>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setMovieTitle([]);
+    setMoviePosters([]);
+    setMovieDetails([]);
     if (searchInputMovie.trim() === '') {
       return;
     }
+    setIsLoading(true);
     const response = await fetch(`/api/recommend_movie/${encodeURIComponent(searchInputMovie)}`);
     const data: MovieData = await response.json();
     setMovieTitle(data.recommendation);
-    setMoviePosters(data.movie_posters);
     setMovieDetails(data.movie_details);
     setCurrentPage(1);
+    setIsLoading(false);
   };
 
   const handleAutocomplete = async (value: string) => {
@@ -95,21 +99,28 @@ export const MovieRecommendation = () => {
           />
           <button
             type='submit'
-            className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-2.5 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ml-2'
+            className='text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 text-base focus:ring-2 focus:ring-gray-200 font-medium rounded-lg px-5 py-2 mr-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ml-2'
           >
-            <FiSearch className='inline-block' />
+            {isLoading ? (
+              <div className='animate-spin'>
+                <FiLoader />
+              </div>
+            ) : (
+              <FiSearch className='inline-block' />
+            )}
           </button>
         </div>
       </form>
-      {paginatedRecommendations.length > 0 && (
-        <MovieList recommendations={paginatedRecommendations} posters={moviePosters} details={movieDetails} />
+      {movieDetails.length > 0 && (
+        <MovieList details={movieDetails.slice(0, currentPage * 12)} />
       )}
       {movieTitle.length > currentPage * 12 && paginatedRecommendations.length <= 105 && (
         <button
           onClick={handleLoadMore}
-          className='py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover mx-auto mt-4 w-1/2 border-2 border-gray-400'
+          className='py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover mx-auto mt-8 w-1/2 border-2 border-green-400'
         >
           Load More
+          <FiArrowDown size={20} className='ml-2 inline-block animate-bounce text-green-400' />
         </button>
       )}
     </div>

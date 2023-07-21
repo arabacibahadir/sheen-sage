@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Link from 'next/link';
-import { FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
 
 interface Movie {
   id: number;
@@ -46,22 +46,9 @@ const Watchlist = () => {
     <div className='h-screen'>
       <Link href='/' className='absolute left-8 top-8'>
         <button
-          className='flex items-center group text-sm text-foreground no-underline bg-btn-background hover:bg-btn-background-hover rounded-md py-2 px-4'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            className='mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1'
-          >
-            <polyline points='15 18 9 12 15 6' />
-          </svg>
-          {' '}
+          className='flex items-center group text-sm text-foreground no-underline bg-btn-background hover:bg-btn-background-hover rounded-md py-2 px-4'
+        >
+          <FiArrowLeft size={20} className='mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1' />
           Back
         </button>
       </Link>
@@ -76,7 +63,7 @@ const Watchlist = () => {
                 className='text-red-500'
                 onClick={() => removeMovie(movie.movie)}
               >
-               <FiTrash2 size={20} />
+                <FiTrash2 size={20} />
               </button>
             </li>
           ))}
