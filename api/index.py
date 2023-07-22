@@ -52,7 +52,4 @@ def get_recommendation(movie: str):
 @app.get("/api/random_best_movies")
 def random_best_movies():
     random_movies = best_movies.sample(n=4)
-    for i in range(len(random_movies)):
-        while random_movies.iloc[i]["title"] not in movie_titles["title"].values:
-            random_movies.iloc[i] = best_movies.sample(n=1)
     return random_movies.to_dict(orient="records")

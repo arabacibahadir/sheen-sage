@@ -3,6 +3,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import Autocomplete from './AutocompleteInput';
 import MovieList from './MovieList';
 import { FiArrowDown, FiArrowDownCircle, FiLoader, FiSearch } from 'react-icons/fi';
+import { LoadingLandingSkeleton, LoadingRecommendedMovieSkeleton } from '@/components/LoadingSkeleton';
 
 interface MovieData {
   movie_details: any;
@@ -18,6 +19,7 @@ export const MovieRecommendation = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isMoviesLoading, setIsMoviesLoading] = useState<boolean>(false);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMovieTitle([]);
@@ -111,8 +113,12 @@ export const MovieRecommendation = () => {
           </button>
         </div>
       </form>
-      {movieDetails.length > 0 && (
-        <MovieList details={movieDetails.slice(0, currentPage * 12)} />
+      {isLoading ? (
+        <div className='grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-20'>
+          {Array.from({ length: 8 }).map((_, index) => <LoadingRecommendedMovieSkeleton key={index} />)}
+        </div>
+      ) : (
+        movieDetails.length > 0 && <MovieList details={movieDetails.slice(0, currentPage * 12)} />
       )}
       {movieTitle.length > currentPage * 12 && paginatedRecommendations.length <= 105 && (
         <button

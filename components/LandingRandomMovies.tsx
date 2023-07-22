@@ -1,5 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { LoadingLandingSkeleton } from '@/components/LoadingSkeleton';
+
 
 interface Movie {
   title: string;
@@ -67,21 +69,25 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
 
 export const LandingRandomMovies = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
       const response = await fetch('/api/random_best_movies');
       const data: Movie[] = await response.json();
       setMovies(data);
+      setIsLoading(false);
     };
     fetchMovies();
   }, []);
 
   return (
     <div className='grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 animate-in'>
-      {movies.map((movie, index) => (
-        <MovieCard key={index} movie={movie} />
-      ))}
+      {isLoading ? (
+        Array.from({ length: 4 }).map((_, index) => <LoadingLandingSkeleton key={index} />)
+      ) : (
+        movies.map((movie, index) => <MovieCard key={index} movie={movie} />)
+      )}
     </div>
   );
 };

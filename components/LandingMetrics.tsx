@@ -16,11 +16,11 @@ export const LandingMetrics = () => {
   ];
 
   const handleMouseEnter = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.add('border-green-500');
+    event.currentTarget.classList.add('border-green-400');
   };
 
   const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove('border-green-500');
+    event.currentTarget.classList.remove('border-green-400');
   };
 
   return (
