@@ -43,7 +43,7 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
       onMouseLeave={handleMouseLeave}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
         alt={movie.title}
         className={`h-auto w-80 rounded-lg ${isHovered ? 'filter blur-md' : ''}`}
         loading='lazy'

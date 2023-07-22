@@ -25,7 +25,7 @@ def get_movie_details(title):
 
 def get_movie_poster(title):
     poster_path = movie_data[movie_data["title"] == title]["poster_path"].values[0]
-    return "https://image.tmdb.org/t/p/original" + poster_path
+    return "https://image.tmdb.org/t/p/w500" + poster_path
 
 
 @app.get("/api/movie_titles")

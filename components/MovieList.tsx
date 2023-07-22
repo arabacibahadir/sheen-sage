@@ -74,7 +74,7 @@ const MovieList = ({ details }: MovieListProps) => {
             {movie[0] && (
               <>
                 <img
-                  src={`https://image.tmdb.org/t/p/original${movie[0].poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w500${movie[0].poster_path}`}
                   alt={`Poster ${index}`}
                   className={`h-auto rounded-lg border-white border-4 ${index === isHovered ? 'filter blur-md scale-105 transform transition duration-500' : ''} `}
                   loading='lazy'
